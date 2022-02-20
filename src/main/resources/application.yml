@@ -1,0 +1,67 @@
+logging:
+  level:
+    com:
+      ares:
+        seckill:
+          mapper: debug
+
+mybatis-plus:
+  mapper-locations: classpath*:mapper/xml/*Mapper.xml  # MyBatisPlus配置
+  type-aliases-package: com.ares.seckill.pojo # # 返回实体别名
+
+spring:
+  application:
+    name: seckill-service
+  cloud:
+    nacos:
+      server-addr: localhost:10888
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      auto-commit: true  # 从连接池返回的链接自动提交
+      connection-test-query: SELECT 1
+      connection-timeout: 30000  # 连接超时时间，默认30000（30s）
+      idle-timeout: 1800000 # 空闲连接存活最大时间，默认为600000（10分钟）
+      max-lifetime: 1800000  # #连接最大存活时间，0表示永久，默认1800000（30分钟）
+      minimum-idle: 5   # 最小空闲连接数
+      pool-name: DateHikariCP  # 配置数据库连接池
+    password: 123456
+    url: jdbc:mysql://localhost:3306/ad_seckill?serverTimezone=GMT&characterEncoding=utf-8
+    username: root
+  # rabbitmq
+  rabbitmq:
+    host: localhost
+    listener:
+      simple:
+        auto-startup: true
+        concurrency: 10
+        default-requeue-rejected: true
+        max-concurrency: 10
+        prefetch: 1
+    password: admin
+    port: 5672
+    template:
+      retry:
+        enabled: true # 发布重试，默认为false
+        initial-interval: 1000 # 重试时间，默认1000ms
+        max-attempts: 3  # 重试最大次数，默认3次
+        max-interval: 10000 # 重试最大时间间隔，默认100000ms
+        multiplier: 1.0  # 重试间隔的乘数，比如配2.0 第一次等10s，第二次等20s，第三次等40s
+    username: admin
+    virtual-host: my_vhost # 虚拟主机
+  # redis
+  redis:
+    database: 0
+    host: localhost
+    lettuce:
+      pool:
+        max-active: 1024
+        max-idle: 200
+        max-wait: 10000ms
+        min-idle: 5
+    password: ''
+    port: 6379
+    timeout: 100000ms
+  # thymeleaf 缓存配置
+  thymeleaf:
+    cache: false

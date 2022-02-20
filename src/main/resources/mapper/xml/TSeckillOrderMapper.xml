@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ares.seckill.mapper.TSeckillOrderMapper">
+    <select id="findOrderVoByGoodsIdAndUserId" resultType="com.ares.seckill.pojo.TSeckillOrder">
+        SELECT
+            id as id,
+            user_id as userId,
+            order_id as orderId,
+            goods_id as goodsId
+        FROM
+            t_seckill_order
+        WHERE
+            goods_id =#{goodsId}
+            AND user_id = #{userId}
+    </select>
+</mapper>
